@@ -13,7 +13,7 @@ contract SimpleBank {
     //
 
     /* Fill in the keyword. Hint: We want to protect our users balance from other contracts*/
-    mapping (address => uint) private balances;
+    mapping (address => uint) internal balances;
 
     /* Fill in the keyword. We want to create a getter function and allow contracts to be able to see if a user is enrolled.  */
     mapping (address => bool) public enrolled;
@@ -29,7 +29,7 @@ contract SimpleBank {
     event LogEnrolled(address indexed accountAddress);
 
     /* Add 2 arguments for this event, an accountAddress and an amount */
-    event LogDepositMade(address indexed accoundAddress, uint indexed amount);
+    event LogDepositMade(address indexed accountAddress, uint indexed amount);
 
     /* Create an event called LogWithdrawal */
     /* Add 3 arguments for this event, an accountAddress, withdrawAmount and a newBalance */
@@ -75,7 +75,7 @@ contract SimpleBank {
     function deposit() public payable returns (uint) {
         /* Add the amount to the user's balance, call the event associated with a deposit,
           then return the balance of the user */
-          require(enrolled[msg.sender], "Account is not registered in the bank.");
+
           balances[msg.sender] = balances[msg.sender] + msg.value;
           emit LogDepositMade(msg.sender, msg.value);
           return balances[msg.sender];
